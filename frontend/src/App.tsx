@@ -1,12 +1,10 @@
 import './styles/global.scss'
 
-import { Header } from './components/Header';
+import { CreateUserView } from './views/CreateUserView';
 
 function App() {
   return (
-    <div>
-      <Header />
-    </div>
+    <CreateUserView />
   );
 }
 
