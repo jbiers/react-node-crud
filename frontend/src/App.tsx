@@ -1,10 +1,10 @@
 import './styles/global.scss'
 
-import { CreateUserView } from './views/CreateUserView';
+import { Home } from './views/Home';
 
 function App() {
   return (
-    <CreateUserView />
+    <Home />
   );
 }
 

@@ -1,9 +1,11 @@
-import './style.scss'
+interface HeaderProps {
+    title: string;
+}
 
-export function Header() {
+export function Header({ title }: HeaderProps) {
     return (
         <header>
-            <h1>CRUD</h1>
+            <h1>{title}</h1>
         </header>
     )
 }
