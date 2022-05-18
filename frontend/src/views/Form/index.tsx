@@ -1,74 +1,73 @@
 import { Header } from "../../components/Header"
 import { Navbar } from "../../components/Navbar"
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 
 import axios from 'axios';
 
-interface State {
-    id: number;
-    uf: string;
-    string?: string;
-}
-
 export function Form() {
-    const [states, setStates] = useState<State[]>([]);
     const [fields, setFields] = useState({
-        textName: '',
-        textAge: 0,
-        cmbUF: 0,
+        name: '',
+        author: '',
+        genre: '',
+        pages: 0,
     });
 
     function handleInputChange(event: FormEvent<HTMLInputElement> | FormEvent<HTMLSelectElement>) {
-        setFields({...fields, [event.currentTarget.name]: event.currentTarget.value})
+        setFields({...fields, [event.currentTarget.name]: event.currentTarget.value});
     }
 
     function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        axios.post('http://localhost:3031/register', fields)
+        axios.post('http://localhost:3031/books', fields)
         .then(response => {
-            alert(response.data.data.length + ' registrations');
+            alert(response.data.book);
+            console.log(response.data.book);
         })
     }
 
-    useEffect(() => {
+    /*useEffect(() => {
         axios.get('http://localhost:3030/states')
         .then(response => {
             setStates(response.data);
         })
-    }, []);
+    }, []);*/
 
     return (
         <div>
-            <Header title="Form" />
+            <Header title="Books" />
             <Navbar />
             
 
             <form onSubmit={handleFormSubmit}>
                 <fieldset>
                 <legend>
-                    <h2>Sign in data</h2>
+                    <h2>New book data</h2>
                 </legend>
  
                 <div>
                     <label>Name:
-                        <input type="text" name="textName" id="textName" onChange={handleInputChange} />
+                        <input type="text" name="name" id="name" onChange={handleInputChange} />
+                    </label>
+                </div>
+
+                <div>
+                    <label>Author:
+                        <input type="text" name="author" id="author" onChange={handleInputChange} />
+                    </label>
+                </div>
+
+                <div>
+                    <label>Genre:
+                        <input type="text" name="genre" id="genre" onChange={handleInputChange} />
                     </label>
                 </div>
  
                 <div>
-                    <label>Age:
-                        <input type="number" name="textAge" id="textAge" onChange={handleInputChange} />
+                    <label>Pages:
+                        <input type="number" name="pages" id="pages" onChange={handleInputChange} />
                     </label>
                 </div>
- 
-                <div>
-                    <label>UF:
-                        <select name="cmbUF" id="cmbUF" onChange={handleInputChange}>
-                            <option value="0">Choose an option:</option>
-                            {states.map(state => (<option key={state.id} value={state.id}>{state.uf}</option>))}
-                        </select>
-                    </label>
-                </div>
+                
                 <input type="submit" value="Save" />
                 </fieldset>
             </form>
